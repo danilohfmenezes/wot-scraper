@@ -15,6 +15,8 @@ class CharactersSpider(scrapy.Spider):
         for letter in alphabet:
             relative_url = f'/wiki/Category:Men?from={letter}'
             yield response.follow(url=relative_url, callback=self.parse_letter, meta={'letter': letter})
+            relative_url = f'/wiki/Category:Women?from={letter}'
+            yield response.follow(url=relative_url, callback=self.parse_letter, meta={'letter': letter})
 
     def parse_letter(self, response):
         letter = response.request.meta['letter']

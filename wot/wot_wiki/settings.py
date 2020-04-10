@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'wot_wiki.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Dunder Dan (Trying to get a dataset of characters from WoT) (dunderdanilo@gmail.com)'
+USER_AGENT = 'Dunder Dan (dunderdanilo@gmail.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
