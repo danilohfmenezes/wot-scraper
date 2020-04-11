@@ -1,0 +1,6 @@
+Some characters don't have Bio info. I have found two of them. Two other I was not able to find:
+https://wot.fandom.com/wiki/Culan_Cuhan
+https://wot.fandom.com/wiki/Anla_the_Wise_Counselor
+
+The POV statistics dataset was scraped but one line was altered:
+Line 35 resulted in Prologue. I changed it manually so that it could corresponde to the way the second prologue is referred to in the wiki page.

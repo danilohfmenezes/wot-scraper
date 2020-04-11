@@ -28,44 +28,44 @@ class CharactersSpider(scrapy.Spider):
             yield response.follow(url=character_url, callback=self.parse_character)
 
     def parse_character(self, response):
-        first_metioned = self.splitBookChapter(
-            self.getAttribute(response, 'mentioned'))
-        first_appeared = self.splitBookChapter(
-            self.getAttribute(response, 'appeared'))
-        last_appeared = self.splitBookChapter(
-            self.getAttribute(response, 'lastappeared'))
+        first_metioned = self.split_book_chapter(
+            self.get_attribute(response, 'mentioned'))
+        first_appeared = self.split_book_chapter(
+            self.get_attribute(response, 'appeared'))
+        last_appeared = self.split_book_chapter(
+            self.get_attribute(response, 'lastappeared'))
 
         yield {
-            'name': self.getAttribute(response, 'name'),
-            'birth': self.getAttribute(response, 'birth'),
-            'nationality': self.getAttribute(response, 'nationality'),
-            'gender': self.getAttribute(response, 'gender'),
-            'height': self.getAttribute(response, 'height'),
-            'weight': self.getAttribute(response, 'weight'),
-            'hair_color': self.getAttribute(response, 'hair'),
-            'eye_color': self.getAttribute(response, 'eyes'),
-            'build': self.getAttribute(response, 'build'),
-            'race': self.getAttribute(response, 'race'),
+            'name': self.get_attribute(response, 'name'),
+            'birth': self.get_attribute(response, 'birth'),
+            'nationality': self.get_attribute(response, 'nationality'),
+            'gender': self.get_attribute(response, 'gender'),
+            'height': self.get_attribute(response, 'height'),
+            'weight': self.get_attribute(response, 'weight'),
+            'hair_color': self.get_attribute(response, 'hair'),
+            'eye_color': self.get_attribute(response, 'eyes'),
+            'build': self.get_attribute(response, 'build'),
+            'race': self.get_attribute(response, 'race'),
             'first_mentioned_book': first_metioned['book'],
             'first_mentioned_chapter': first_metioned['chapter'],
             'first_appeared_book': first_appeared['book'],
             'first_appeared_chapter': first_appeared['chapter'],
             'last_appeared_book': last_appeared['book'],
             'last_appeared_chapter': last_appeared['chapter'],
-            'affiliation': self.getAttribute(response, 'affiliation'),
-            'title': self.getAttribute(response, 'title'),
-            'rank': self.getAttribute(response, 'rank'),
-            'status': self.getAttribute(response, 'status'),
-            'death': self.getAttribute(response, 'death'),
-            'occupation': self.getAttribute(response, 'occupation'),
-            'ajah': self.getAttribute(response, 'ajah'),
-            'clan': self.getAttribute(response, 'clan'),
-            'sept': self.getAttribute(response, 'sept'),
+            'affiliation': self.get_attribute(response, 'affiliation'),
+            'title': self.get_attribute(response, 'title'),
+            'rank': self.get_attribute(response, 'rank'),
+            'status': self.get_attribute(response, 'status'),
+            'death': self.get_attribute(response, 'death'),
+            'occupation': self.get_attribute(response, 'occupation'),
+            'ajah': self.get_attribute(response, 'ajah'),
+            'clan': self.get_attribute(response, 'clan'),
+            'sept': self.get_attribute(response, 'sept'),
         }
 
-    def getAttribute(self, response, attribute):
+    def get_attribute(self, response, attribute):
         if attribute == 'name':
-            return response.xpath(
+            attr = response.xpath(
                 '//aside/descendant::*[@data-source="name"]/text()').get()
         else:
             attr = response.xpath(
@@ -75,9 +75,9 @@ class CharactersSpider(scrapy.Spider):
                 attr = response.xpath(
                     f'.//descendant::*[@data-source="{attribute}"]/div/text()').get()
 
-            return attr
+        return self.strip(attr)
 
-    def splitBookChapter(self, attribute):
+    def split_book_chapter(self, attribute):
         if attribute is None:
             return {
                 'book': None,
@@ -87,6 +87,9 @@ class CharactersSpider(scrapy.Spider):
         splitted = attribute.split("\xa0")
 
         return {
-            'book': splitted[0],
-            'chapter': splitted[1] if len(splitted) > 1 else None
+            'book': self.strip(splitted[0]),
+            'chapter':  self.strip(splitted[1]) if len(splitted) > 1 else None
         }
+
+    def strip(self, attribute):
+        return None if attribute is None else attribute.strip()
