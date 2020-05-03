@@ -2,12 +2,7 @@ Some characters don't have Bio info. I have found two of them. Two other I was n
 https://wot.fandom.com/wiki/Culan_Cuhan
 https://wot.fandom.com/wiki/Anla_the_Wise_Counselor
 
-Had to Clean some Character By Hand after collection. Basically the wiki had some data problems with data inserted, I actually corrected some so maybe if 
-the scraper is run again it will get the correct data this time.
-Rosel (first mentioned)
-Martna (first mention, last appeared)
-Sandip (first appeared)
-Mistress Asher (first appeared, last appeared)
+Had to Clean some Character By Hand after collection. The reason is the white separator, which differs from the one I used.
 Ronja (First appeared, last appeared)
 
 The POV statistics dataset was scraped but one line was altered:

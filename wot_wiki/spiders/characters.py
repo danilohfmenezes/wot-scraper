@@ -30,6 +30,8 @@ class CharactersSpider(scrapy.Spider):
     def parse_character(self, response):
         first_metioned = self.split_book_chapter(
             self.get_attribute(response, 'mentioned'))
+        last_mentioned = self.split_book_chapter(
+            self.get_attribute(response, 'lastmentioned'))
         first_appeared = self.split_book_chapter(
             self.get_attribute(response, 'appeared'))
         last_appeared = self.split_book_chapter(
@@ -48,6 +50,8 @@ class CharactersSpider(scrapy.Spider):
             'race': self.get_attribute(response, 'race'),
             'first_mentioned_book': first_metioned['book'],
             'first_mentioned_chapter': first_metioned['chapter'],
+            'last_mentioned_book': last_mentioned['book'],
+            'last_mentioned_chapter': last_mentioned['chapter'],
             'first_appeared_book': first_appeared['book'],
             'first_appeared_chapter': first_appeared['chapter'],
             'last_appeared_book': last_appeared['book'],
