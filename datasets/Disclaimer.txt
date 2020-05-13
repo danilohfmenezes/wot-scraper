@@ -2,8 +2,24 @@ Some characters don't have Bio info. I have found two of them. Two other I was n
 https://wot.fandom.com/wiki/Culan_Cuhan
 https://wot.fandom.com/wiki/Anla_the_Wise_Counselor
 
-Had to Clean some Character By Hand after collection. The reason is the white separator, which differs from the one I used.
+Had to Clean some Character By Hand after collection. The reason is the white separator, which differs from the one I used. Feel free to change the spider to capture it better and open a pull request.
 Ronja (First appeared, last appeared)
+
+Some characters have the same name but are different characters, as I scraped from the Bio info in the character page the scraper could not capture the specifier. I found those characters using pandas and filled the complement myself. Feel free to change the spider to capture it better and open a pull request.
+Dorindha (Far Dareis Mai) https://wot.fandom.com/wiki/Dorindha_(Far_Dareis_Mai)
+Doringha (Roofmistress) https://wot.fandom.com/wiki/Dorindha_(Roofmistress)
+https://wot.fandom.com/wiki/Ella_(servant)
+https://wot.fandom.com/wiki/Ella_(Ogier)
+https://wot.fandom.com/wiki/Ivon
+https://wot.fandom.com/wiki/Ivon_(blacksmith)
+https://wot.fandom.com/wiki/Jaem_the_Giant-Slayer
+https://wot.fandom.com/wiki/Jaem
+https://wot.fandom.com/wiki/Jennet_Cobb
+https://wot.fandom.com/wiki/Jennet_(Murandian_noble)
+https://wot.fandom.com/wiki/Huan_(Seanchan)
+https://wot.fandom.com/wiki/Huan_(Tairen)
+https://wot.fandom.com/wiki/Bari_(entertainer)
+https://wot.fandom.com/wiki/Bari_(servant)
 
 The POV statistics dataset was scraped but one line was altered:
 Line 35 resulted in Prologue. I changed it manually so that it could corresponde to the way the second prologue is referred to in the wiki page.
