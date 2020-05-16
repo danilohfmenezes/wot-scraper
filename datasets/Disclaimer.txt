@@ -20,6 +20,10 @@ https://wot.fandom.com/wiki/Huan_(Seanchan)
 https://wot.fandom.com/wiki/Huan_(Tairen)
 https://wot.fandom.com/wiki/Bari_(entertainer)
 https://wot.fandom.com/wiki/Bari_(servant)
+https://wot.fandom.com/wiki/Wind_(wolf)
+https://wot.fandom.com/wiki/Wind_(horse)
+https://wot.fandom.com/wiki/Arrow_(Moiraine)
+https://wot.fandom.com/wiki/Arrow_(Birgitte)
 
 The POV statistics dataset was scraped but one line was altered:
 Line 35 resulted in Prologue. I changed it manually so that it could corresponde to the way the second prologue is referred to in the wiki page.
