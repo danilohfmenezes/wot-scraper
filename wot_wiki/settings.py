@@ -67,6 +67,12 @@ DUPEFILTER_DEBUG = True
 # ITEM_PIPELINES = {
 #    'wot_wiki.pipelines.WotWikiPipeline': 300,
 # }
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+IMAGES_STORE = '/home/danilo/Desktop/wot-scraper/wot_wiki/img/icons'
+IMAGES_THUMBS = {
+    'small': (50, 50),
+    'big': (270, 270),
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
