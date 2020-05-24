@@ -12,6 +12,17 @@ class Book(scrapy.Item):
     image_urls = scrapy.Field()
     images = scrapy.Field()
 
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug-icon.log"),
+        logging.StreamHandler()
+    ]
+)
+
 
 class IconSpider(scrapy.Spider):
     name = 'icon'
@@ -71,6 +82,6 @@ class IconSpider(scrapy.Spider):
         return "".join(first_letters)
 
     def get_chapter_abbr(self, chapter):
-        start = 9 if chapter.find("Chapter ") == 0 else 0
+        start = 8 if chapter.find("Chapter ") == 0 else 0
         end = len(chapter) if chapter.find(":") == -1 else chapter.find(":")
         return chapter[start:end]

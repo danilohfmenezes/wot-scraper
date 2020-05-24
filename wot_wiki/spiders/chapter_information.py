@@ -67,130 +67,134 @@ class ChapterInformationSpider(scrapy.Spider):
                 })
 
     def parse_chapter(self, response):
-        section = "Characters"
-        book = response.request.meta["book"]
+        # section = "Characters"
+        # book = response.request.meta["book"]
 
-        section_header = response.xpath(f'//h2[span/@id="{section}"]')
-        if len(section_header) == 0:
-            section_header = response.xpath(f'//h3[span/@id="{section}"]')
+        # section_header = response.xpath(f'//h2[span/@id="{section}"]')
+        # if len(section_header) == 0:
+        #     section_header = response.xpath(f'//h3[span/@id="{section}"]')
 
-        if len(section_header):
-            siblings = section_header.xpath(
-                './/following-sibling::*')
+        # if len(section_header):
+        #     siblings = section_header.xpath(
+        #         './/following-sibling::*')
 
-            section_ul = None
-            for sibling in siblings:
-                tag = sibling.xpath('name()').get()
-                if tag == 'ul':
-                    section_ul = sibling
-                    break
-                elif tag == 'h4' or tag == 'h3' or tag == 'h2':
-                    break
+        #     section_ul = None
+        #     for sibling in siblings:
+        #         tag = sibling.xpath('name()').get()
+        #         if tag == 'ul':
+        #             section_ul = sibling
+        #             break
+        #         elif tag == 'h4' or tag == 'h3' or tag == 'h2':
+        #             break
 
-            if section_ul:
-                elements = section_ul.xpath(
-                    './/li')
-                for element in elements:
-                    txt = self.get_text(element)
-                    if txt:
-                        character_url = self.get_url(element)
-                        if character_url is None:
-                            yield {
-                                **book,
-                                'type': f'Character',
-                                'name': txt,
-                                'name_join': txt,
-                                'character_url': character_url
-                            }
-                        elif character_url in char_db.keys():
-                            yield {
-                                **book,
-                                'type': f'Character',
-                                'name': txt,
-                                'name_join': char_db[character_url],
-                                'character_url': character_url
-                            }
-                        else:
-                            yield response.follow(url=character_url, callback=self.parse_character, meta={
-                                'character': {
-                                    **book,
-                                    'type': f'Character',
-                                    'name': txt,
-                                    'name_join': txt,
-                                    'character_url': character_url
-                                }
-                            })
+        #     if section_ul:
+        #         elements = section_ul.xpath(
+        #             './/li')
+        #         for element in elements:
+        #             txt = self.get_text(element)
+        #             if txt:
+        #                 character_url = self.get_url(element)
+        #                 if character_url is None:
+        #                     yield {
+        #                         **book,
+        #                         'type': f'Character',
+        #                         'name': txt,
+        #                         'name_join': txt,
+        #                         'character_url': character_url
+        #                     }
+        #                 elif character_url in char_db.keys():
+        #                     yield {
+        #                         **book,
+        #                         'type': f'Character',
+        #                         'name': txt,
+        #                         'name_join': char_db[character_url],
+        #                         'character_url': character_url
+        #                     }
+        #                 else:
+        #                     yield response.follow(url=character_url, callback=self.parse_character, meta={
+        #                         'character': {
+        #                             **book,
+        #                             'type': f'Character',
+        #                             'name': txt,
+        #                             'name_join': txt,
+        #                             'character_url': character_url
+        #                         }
+        #                     })
 
-            referenced_section_header = None
-            for sibling in siblings:
-                tag = sibling.xpath('name()').get()
-                text = sibling.xpath('.//text()').get()
-                if tag == 'h3' and text == 'Referenced':
-                    referenced_section_header = sibling
-                    break
-                elif tag == 'h2' or tag == 'h4':
-                    break
+        #     referenced_section_header = None
+        #     for sibling in siblings:
+        #         tag = sibling.xpath('name()').get()
+        #         text = sibling.xpath('.//text()').get()
+        #         if tag == 'h3' and text == 'Referenced':
+        #             referenced_section_header = sibling
+        #             break
+        #         elif tag == 'h2' or tag == 'h4':
+        #             break
 
-            if referenced_section_header:
-                siblings = referenced_section_header.xpath(
-                    './/following-sibling::*')
-                section_ul = None
-                for sibling in siblings:
-                    tag = sibling.xpath('name()').get()
-                    if tag == 'ul':
-                        section_ul = sibling
-                        break
-                    elif tag == 'h4' or tag == 'h3' or tag == 'h2':
-                        break
+        #     if referenced_section_header:
+        #         siblings = referenced_section_header.xpath(
+        #             './/following-sibling::*')
+        #         section_ul = None
+        #         for sibling in siblings:
+        #             tag = sibling.xpath('name()').get()
+        #             if tag == 'ul':
+        #                 section_ul = sibling
+        #                 break
+        #             elif tag == 'h4' or tag == 'h3' or tag == 'h2':
+        #                 break
 
-                if section_ul:
-                    elements = section_ul.xpath(
-                        './/li')
-                    for element in elements:
-                        txt = self.get_text(element)
-                        if txt:
-                            character_url = self.get_url(element)
-                            if character_url is None:
-                                yield {
-                                    **book,
-                                    'type': f'Referenced Character',
-                                    'name': txt,
-                                    'name_join': txt,
-                                    'character_url': character_url
-                                }
-                            elif character_url in char_db.keys():
-                                yield {
-                                    **book,
-                                    'type': f'Referenced Character',
-                                    'name': txt,
-                                    'name_join': char_db[character_url],
-                                    'character_url': character_url
-                                }
-                            else:
-                                yield response.follow(url=character_url, callback=self.parse_character, meta={
-                                    'character': {
-                                        **book,
-                                        'type': f'Referenced Character',
-                                        'name': txt,
-                                        'name_join': txt,
-                                        'character_url': character_url
-                                    }
-                                })
+        #         if section_ul:
+        #             elements = section_ul.xpath(
+        #                 './/li')
+        #             for element in elements:
+        #                 txt = self.get_text(element)
+        #                 if txt:
+        #                     character_url = self.get_url(element)
+        #                     if character_url is None:
+        #                         yield {
+        #                             **book,
+        #                             'type': f'Referenced Character',
+        #                             'name': txt,
+        #                             'name_join': txt,
+        #                             'character_url': character_url
+        #                         }
+        #                     elif character_url in char_db.keys():
+        #                         yield {
+        #                             **book,
+        #                             'type': f'Referenced Character',
+        #                             'name': txt,
+        #                             'name_join': char_db[character_url],
+        #                             'character_url': character_url
+        #                         }
+        #                     else:
+        #                         yield response.follow(url=character_url, callback=self.parse_character, meta={
+        #                             'character': {
+        #                                 **book,
+        #                                 'type': f'Referenced Character',
+        #                                 'name': txt,
+        #                                 'name_join': txt,
+        #                                 'character_url': character_url
+        #                             }
+        #                         })
 
-        for place in self.parse_section(response, section='Places', type='Place'):
-            yield place
 
-        for item in self.parse_section(response, section='Items', type='Item'):
-            yield item
-
-        for event in self.parse_section(response, section='Events', type='Event'):
-            yield event
-
-        for concept in self.parse_section(response, section='Concepts', type='Concept'):
+        for concept in self.parse_section(response, section='One_Power', type='Concept'):
             yield concept
+        
+        # for place in self.parse_section(response, section='Places', type='Place'):
+        #     yield place
 
-        for group in self.parse_section(response, section='Groups', type='Group'):
-            yield group
+        # for item in self.parse_section(response, section='Items', type='Item'):
+        #     yield item
+
+        # for event in self.parse_section(response, section='Events', type='Event'):
+        #     yield event
+
+        # for concept in self.parse_section(response, section='Concepts', type='Concept'):
+        #     yield concept
+
+        # for group in self.parse_section(response, section='Groups', type='Group'):
+        #     yield group
 
         # songs
         # stories
